@@ -23,6 +23,15 @@ The scenario mirrors challenges I've seen across operations, marketing, and cust
 
 Although the average payment time with SSA envelopes decreased, the p-value (~0.175) exceeded our threshold of significance. This means we cannot confidently recommend the SSA policy — at least not without further testing or a larger sample. That said, the analysis provides a useful framework for balancing statistical rigor with business practicality, especially when dealing with low-cost, high-frequency decisions.
 
+## Understanding Type I and Type II Errors
+
+This analysis highlights the tradeoffs that come with statistical decision-making:
+
+- **Type I Error** (false positive): We would falsely conclude that SSA envelopes are profitable when they’re not. That would lead to unnecessary costs.
+- **Type II Error** (false negative): We might miss a truly effective solution. By failing to adopt the plan, we could lose out on faster payments and better cash flow.
+
+Since the p-value was greater than 0.10, we failed to reject the null hypothesis. This avoids a Type I error, but opens the door to a possible Type II error — missing out on an opportunity due to inconclusive evidence.
+
 ## Reflection
 
 This project reminded me that data-driven decisions don’t exist in a vacuum. Understanding the cost of different types of error — and how they map to real-world consequences — is what turns an analysis into a recommendation. I walked away more confident in using statistics as a tool for actionable, risk-conscious strategy.
@@ -33,5 +42,10 @@ This project reminded me that data-driven decisions don’t exist in a vacuum. U
 - Methods: One-sample t-test, Type I/II error framing
 - Dataset: 220 customer payment records
 - Libraries: base R, `t.test()`
+
+## Future Enhancements
+
+Future enhancements include expanding the sample or testing the intervention through a randomized experiment to better assess its operational impact.
+
 
 
