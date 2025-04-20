@@ -1,0 +1,84 @@
+---
+title: "Signed, Sealed… Paid Faster?"
+author: "Jovoney Morton"
+date: "2024"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+```
+
+## Project Overview
+In this project, I evaluated a courier company’s proposal to include stamped self-addressed (SSA) envelopes with invoices to encourage faster customer payments. Using real-world data from 220 customers who received SSA envelopes, I tested whether this tactic significantly reduced the average payment time — enough to offset the envelope cost and improve cash flow.
+
+## Data Setup
+```{r load-data}
+# Load the dataset (assumes SSA.csv is in the working directory)
+SSA <- read.csv("/Users/jovoney/Downloads/SSA.csv")
+```
+
+## Exploratory Data Analysis
+```{r summary}
+# Summary statistics
+summary(SSA$Payment)
+sd(SSA$Payment)
+```
+
+```{r histogram}
+# Histogram of payment times
+hist(SSA$Payment,
+     main = "Distribution of Payment Times",
+     xlab = "Days Until Payment",
+     col = "steelblue",
+     border = "white")
+```
+
+```{r boxplot}
+# Boxplot with reference line at mu = 22
+y <- SSA$Payment
+boxplot(y,
+        horizontal = TRUE,
+        main = "Boxplot of Payment Times",
+        xlab = "Days",
+        col = "lightgray")
+abline(v = 22, col = "red", lty = 2)
+```
+
+## Hypothesis Setup
+The CFO wants to test if including a stamped self-addressed envelope reduces payment time below 22 days. If true, this would justify the cost.
+
+- Null Hypothesis (H0): Mean payment time >= 22 days (no profit)
+- Alternative Hypothesis (H1): Mean payment time < 22 days (profitable)
+
+This is a one-tailed t-test using the sample data.
+
+## Hypothesis Testing
+```{r t-test}
+# One-sample t-test
+t.test(SSA$Payment, alternative = "less", mu = 22)
+```
+
+## Interpretation
+
+### Type I and Type II Errors
+
+- **Type I Error (False Positive)**:
+  - Rejecting the null hypothesis when it is actually true.
+  - In this case: Concluding that SSA envelopes are profitable when they are not.
+  - Business consequence: Implementing the envelope plan, incurring additional costs without seeing the expected benefit.
+
+- **Type II Error (False Negative)**:
+  - Failing to reject the null hypothesis when it is actually false.
+  - In this case: Missing the opportunity to implement a potentially effective low-cost intervention.
+  - Business consequence: Not adopting the plan and continuing to wait longer for payments, losing potential gains in cash flow.
+
+If the p-value is less than 0.10 (our chosen significance level), we reject the null hypothesis and conclude the SSA envelope reduces payment time below the profitability threshold.
+
+In this case, the p-value is greater than 0.10, so we fail to reject the null hypothesis. There is insufficient evidence to recommend implementing the policy — but the approach remains a useful framework for future decision-making.
+
+## Reflection
+This project blends statistical testing with operational decision-making. It emphasizes how Type I and Type II error framing can influence business strategy, especially in low-cost, high-frequency decisions like payment operations.
+
+Future enhancements include expanding the sample or testing the intervention through a randomized experiment to better assess its operational impact.
