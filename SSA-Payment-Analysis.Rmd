@@ -15,7 +15,7 @@ In this project, I evaluated a courier company’s proposal to include stamped s
 
 ## Data Setup
 ```{r load-data}
-# Load the dataset (assumes SSA.csv is in the working directory)
+# Load the dataset
 SSA <- read.csv("/Users/jovoney/Downloads/SSA.csv")
 ```
 
